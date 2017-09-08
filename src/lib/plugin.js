@@ -192,8 +192,9 @@ class PluginEthereum extends EventEmitter2 {
       fulfillment
     })
 
-    await Ethereum.waitForReceipt(this.web3, hash)
-    debug('fulfill transaction mined')
+    // await Ethereum.waitForReceipt(this.web3, hash)
+    // debug('fulfill transaction mined')
+    debug('fulfill transaction submitted')
   }
 
   async getBalance () {
@@ -201,7 +202,8 @@ class PluginEthereum extends EventEmitter2 {
 
     // TODO: better number conversion
     debug('getting the balance')
-    const [ , balance ] = this.web3.eth.getBalance(this.address)
+     const [ , balance ] = this.web3.eth.getBalance(this.address)
+      .toString()
       .match(/^(.+)\d{9}/) || [ , '0' ]
 
     return balance
@@ -213,10 +215,11 @@ class PluginEthereum extends EventEmitter2 {
     const hash = await Ethereum.sendTransfer(this.contract, transfer,
       this.web3)
 
-    debug('awaiting receipt for transfer with id', transfer.id)
-    await Ethereum.waitForReceipt(this.web3, hash)
+    // debug('awaiting receipt for transfer with id', transfer.id)
+    // await Ethereum.waitForReceipt(this.web3, hash)
     this.notesToSelf[transfer.id] = JSON.stringify(transfer.noteToSelf)
-    debug('send transaction mined')
+    // debug('send transaction mined')
+    debug('send transaction submitted')
   }
 }
 

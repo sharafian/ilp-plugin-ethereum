@@ -88,7 +88,7 @@ function getMemo (contract, uuid) {
 }
 
 function onEvent (contract, name, callback) {
-  contract[name]((error, result) => {
+  contract[name]({}, { toBlock: 'pending' }, (error, result) => {
     if (error) {
       console.error(name + ' error:', error)
       return
